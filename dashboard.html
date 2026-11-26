@@ -119,6 +119,10 @@
         cursor: not-allowed;
       }
     </style>
+
+    @media (max-width: 768px) { .dash-grid-4, .dash-grid-2 {
+    grid-template-columns: 1fr !important; gap: 1rem !important; } .stat-card {
+    padding: 1rem !important; } }
   </head>
   <body>
     <div class="logo-bg"></div>
@@ -135,7 +139,7 @@
         </div>
 
         <nav class="sidebar-nav" aria-label="Navigasi utama">
-          <a href="dashboard.html" class="nav-item active" aria-current="page">
+          <a href="/dashboard.html" class="nav-item active" aria-current="page">
             <span class="nav-icon">📊</span>
             <span class="nav-label">Dashboard</span>
           </a>
@@ -301,22 +305,24 @@
         <!-- RIWAYAT TRANSAKSI TERBARU -->
         <section id="keuangan">
           <h2>Aktivitas Keuangan Terbaru</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Tanggal</th>
-                <th>Pos Dana</th>
-                <th>KK / Kategori</th>
-                <th>Keterangan</th>
-                <th>Nominal</th>
-              </tr>
-            </thead>
-            <tbody id="tbodyAktivitasTerbaru">
-              <tr>
-                <td colspan="5">Memuat aktivitas keuangan terbaru...</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Pos Dana</th>
+                  <th>KK / Kategori</th>
+                  <th>Keterangan</th>
+                  <th>Nominal</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyAktivitasTerbaru">
+                <tr>
+                  <td colspan="5">Memuat aktivitas keuangan terbaru...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
       </main>
     </div>

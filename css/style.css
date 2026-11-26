@@ -1,4 +1,84 @@
-/* === FORM & TABEL DATA === */
+/* ============================================================
+   BASE / RESET GLOBAL
+   ============================================================ */
+:root {
+  --app-font:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --page-pad: clamp(0.9rem, 3vw, 2rem);
+  --border-soft: #e2e8f0;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --shadow-card: 0 4px 16px rgba(15, 23, 42, 0.06);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--app-font);
+  color: var(--text-main);
+  background: #f1f5f9;
+  line-height: 1.55;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.25;
+  overflow-wrap: break-word;
+}
+
+p,
+li,
+label,
+span {
+  overflow-wrap: break-word;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  min-height: 44px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   GENERIC UTILS (used by all pages)
+   ============================================================ */
 .card-section {
   background: white;
   padding: 1.5rem;
@@ -50,8 +130,14 @@
   font-size: 0.9rem;
 }
 
-.table-responsive {
+.table-responsive,
+.table-wrapper {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 1rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: #ffffff;
 }
 
 .data-table {
@@ -118,6 +204,7 @@
   cursor: pointer;
   font-size: 0.8rem;
   font-weight: 600;
+  min-height: 44px;
 }
 
 .btn-hapus:hover {
@@ -143,6 +230,7 @@
   overflow: hidden;
   padding: 2rem;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .login-card {
@@ -153,7 +241,7 @@
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   width: 100%;
-  max-width: 400px;
+  max-width: 440px;
   position: relative;
   z-index: 20;
 }
@@ -197,15 +285,14 @@
 }
 .form-group input {
   width: 100%;
+  max-width: 92vw;
   padding: 0.875rem 1rem;
   border: 1px solid #cbd5e1;
   border-radius: 10px;
   font-size: 0.95rem;
   background: #f8fafc;
   box-sizing: border-box;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 .form-group input:focus {
   outline: none;
@@ -225,9 +312,7 @@
   font-weight: 600;
   cursor: pointer;
   margin-top: 0.25rem;
-  transition:
-    background 0.2s,
-    transform 0.1s;
+  transition: background 0.2s, transform 0.1s;
 }
 #loginBtn:hover:not(:disabled) {
   background: #0f172a;
@@ -248,536 +333,154 @@
 }
 
 /* ============================================================
-   MODERN DASHBOARD (dashboard.html)
+   FLEXIBLE TYPOGRAPHY (clamp)
    ============================================================ */
-.dashboard-body {
-  margin: 0;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    "Helvetica Neue",
-    Arial,
-    sans-serif;
-  background: #f1f5f9;
-  color: #0f172a;
+h1 {
+  font-size: clamp(1.35rem, 4vw, 2.4rem);
+}
+h2 {
+  font-size: clamp(1.05rem, 2.2vw + 0.5rem, 1.6rem);
+}
+.page-header h1 {
+  font-size: clamp(1.25rem, 3.5vw, 2rem);
+}
+.stat-value,
+.keu-card-value {
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+}
+.stat-sub,
+.keu-card-label {
+  font-size: clamp(0.72rem, 1.5vw, 0.82rem);
 }
 
-/* Logo GSJA sebagai watermark background transparan di seluruh dashboard */
-.logo-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  opacity: 0.07;
-  pointer-events: none;
-  background-image: url("assets/logo-gsja.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 600px;
-  /* Overlay halus agar teks tetap jelas di atas logo */
-  background-color: rgba(241, 245, 249, 0.85);
-  background-blend-mode: soft-light;
-}
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 260px;
-  background: #0f172a;
-  color: #ffffff;
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
-}
-.sidebar-brand {
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  border-bottom: 1px solid #1e293b;
-}
-.sidebar-logo {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  background: #ffffff;
-  padding: 4px;
-  border-radius: 8px;
-}
-
-/* Logo di halaman Jemaat & Keuangan (sidebar brand) */
-.logo-daftar {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  background: #ffffff;
-  padding: 4px;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-.sidebar-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #f8fafc;
-  letter-spacing: -0.25px;
-}
-.sidebar-nav {
-  padding: 1rem 1.25rem;
-  flex: 1;
-  overflow-y: auto;
-}
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
-  color: #cbd5e1;
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  transition:
-    background 0.2s,
-    color 0.2s;
-  border: 1px solid transparent;
-}
-.nav-item:hover {
-  background: #1e293b;
-  color: #ffffff;
-}
-.nav-item.active {
-  background: #3b82f6;
-  color: #ffffff;
-  border-color: #60a5fa;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
-}
-.nav-icon {
-  font-size: 1.1rem;
-}
-.sidebar-footer {
-  padding: 1.25rem;
-  border-top: 1px solid #1e293b;
-}
-.btn-logout {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background: transparent;
-  color: #94a3b8;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  font-weight: 500;
+/* Modern button styles for all devices */
+.btn {
+  display: inline-block;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
   cursor: pointer;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.5rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+.btn-primary {
+  color: #ffffff;
+  background-color: #1e293b;
+}
+.btn-primary:hover {
+  color: #ffffff;
+  background-color: #0f172a;
+  border-color: #0f172a;
+}
+
+.btn-secondary {
+  color: #334155;
+  background-color: #f8fafc;
+}
+.btn-secondary:hover {
+  color: #0f172a;
+  background-color: #e2e8f0;
+}
+
+.btn-success {
+  color: #15803d;
+  background-color: #d1e7dd;
+}
+.btn-success:hover {
+  color: #115e2d;
+  background-color: #bad4cd;
+}
+
+.btn-danger {
+  color: #dc2626;
+  background-color: #fecaca;
+}
+.btn-danger:hover {
+  color: #b91f1b;
+  background-color: #fca5a5;
+}
+
+.btn-outline {
+  color: #334155;
+  background-color: transparent;
+  border-color: #cbd5e1;
+}
+.btn-outline:hover {
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+/* Override existing button classes with modern styling */
+button.btn-logout,
+.btn-logout {
+  color: #94a3b8;
+  border-color: #334155;
+  background: transparent;
+}
+button.btn-logout:hover,
 .btn-logout:hover {
-  background: #334155;
+  background-color: #334155;
   color: #ffffff;
   border-color: #475569;
 }
 
-/* Area utama di samping sidebar */
-.dashboard-main {
-  margin-left: 260px;
-  min-height: 100vh;
-  padding: 2rem;
-  position: relative;
-  z-index: 10;
+button.btn-ai,
+.btn-ai {
+  background-color: #0f172a;
+  color: #ffffff;
+}
+button.btn-ai:hover,
+.btn-ai:hover {
+  background-color: #0a0e17;
 }
 
-/* Area utama di halaman Jemaat & Keuangan (sisipkan di samping sidebar) */
-.app-layout {
-  display: flex;
-}
-.main-content {
-  margin-left: 260px;
-  min-height: 100vh;
-  padding: 2rem;
-  box-sizing: border-box;
-}
-
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-.topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-.topbar-title-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-.logo-mark {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-  border-radius: 8px;
-  background: #ffffff;
-  padding: 3px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  flex-shrink: 0;
-}
-.topbar-left h1.topbar-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin: 0 0 0.25rem;
-  color: #0f172a;
-}
-.topbar-subtitle {
-  font-size: 0.95rem;
-  color: #64748b;
-  margin: 0;
-}
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.user-email {
-  font-size: 0.875rem;
-  color: #475569;
-  background: #ffffff;
-  padding: 0.4rem 0.85rem;
-  border-radius: 20px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
-
-.dashboard-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.section-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0 0 0.5rem;
-  color: #0f172a;
-}
-.section-subtitle {
-  font-size: 0.95rem;
-  color: #64748b;
-  margin: 0 0 1.5rem;
-}
-
-/* Kartu statistik */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.25rem;
-}
-.stat-card {
-  background: #ffffff;
-  padding: 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid #f1f5f9;
-}
-.stat-card .stat-label {
-  font-size: 0.875rem;
-  color: #64748b;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-}
-.stat-card .stat-value {
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: #0f172a;
-  line-height: 1;
-}
-.stat-card .stat-icon {
-  font-size: 2rem;
-  opacity: 0.2;
-}
-
-/* Section Keuangan */
-.keuangan-section {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  border: 1px solid #f1f5f9;
-}
-.empty-state {
-  text-align: center;
-  padding: 3rem 1rem;
-  color: #64748b;
-}
-.empty-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  display: block;
-}
-.empty-title {
-  font-size: 1.125rem;
-  font-weight: 600;
+/* Tab buttons already have .tab-btn class */
+.tab-btn {
+  background-color: #ffffff;
+  border-color: #cbd5e1;
   color: #334155;
-  margin: 0 0 0.5rem;
 }
-.empty-desc {
-  font-size: 0.95rem;
-  margin: 0;
+.tab-btn.active {
+  background-color: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
 }
 
-/* Responsif: sidebar menyembunyikan di layar kecil */
+/* Button minimum touch target */
 @media (max-width: 768px) {
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-  #sidebarToggle:checked ~ .sidebar {
-    transform: translateX(0);
-  }
-  .dashboard-main {
-    margin-left: 0;
-  }
-  .logo-corner {
-    top: 1rem;
-    left: 1rem;
-  }
-  .logo-img {
-    width: 50px;
-    height: 50px;
-  }
-  .login-card {
-    padding: 1.75rem 1.25rem;
+  .btn,
+  button,
+  .btn-hapus,
+  .btn-hapus-jemaat,
+  .btn-hapus-transaksi,
+  .tab-btn,
+  button[type="submit"] {
+    min-height: 44px;
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
   }
 }
 
-/* ============================================================
-   HALAMAN DATA JEMAAT (pages/jemaat.html)
-   ============================================================ */
-
-/* Tombol toggle sidebar di HP (disembunyikan di desktop) */
-.topbar-menu {
-  display: none;
-  background: transparent;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 0.55rem 0.7rem;
-  cursor: pointer;
-  font-size: 1.15rem;
-  color: #334155;
-  line-height: 1;
+/* Font scaling for all screens - clamp-based */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
-/* Susunan topbar di halaman jemaat: menu toggle di samping judul */
-.page-jemaat .topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
 }
 
-/* Kartu konten (form dan tabel terpisah) */
-.card {
-  background: #ffffff;
-  border: 1px solid #f1f5f9;
-  border-radius: 14px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  margin-bottom: 1.5rem;
-}
-.card h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0 0 0.75rem;
-  color: #0f172a;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* Status sesi di atas form */
-#statusJemaat {
-  font-size: 0.875rem;
-  color: #64748b;
-  margin: 0 0 1rem;
-  min-height: 1.25rem;
-}
-
-/* Form input jemaat */
-#jemaatForm > div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  margin-bottom: 1rem;
-}
-
-#jemaatForm label {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #334155;
-  margin-bottom: 0.35rem;
-}
-
-#jemaatForm input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  background: #f8fafc;
-  box-sizing: border-box;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
-}
-
-#jemaatForm input:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-  background: #ffffff;
-}
-
-#simpanJemaatBtn {
-  width: 100%;
-  padding: 0.85rem;
-  background: #0f172a;
-  color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  transition:
-    background 0.2s,
-    transform 0.1s;
-}
-
-#simpanJemaatBtn:hover:not(:disabled) {
-  background: #1e293b;
-}
-#simpanJemaatBtn:active:not(:disabled) {
-  transform: scale(0.98);
-}
-#simpanJemaatBtn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-#jemaatMessage {
-  margin-top: 0.75rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  min-height: 1.25rem;
-  word-break: break-word;
-}
-
-/* Wrapper tabel agar bisa di-scroll horizontal di HP */
-.table-responsive {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  margin-top: 1rem;
-}
-
-/* Tombol hapus pada tabel jemaat (kelas yang di-generate oleh jemaat.js) */
-.btn-hapus-jemaat {
-  display: inline-flex;
-  align-items: center;
-  background-color: #fee2e2;
-  color: #dc2626;
-  border: 1px solid #fecaca;
-  padding: 0.45rem 0.85rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
-}
-
-.btn-hapus-jemaat:hover {
-  background-color: #dc2626;
-  color: #ffffff;
-  border-color: #dc2626;
-}
-
-.btn-hapus-jemaat:focus-visible {
-  outline: 2px solid #dc2626;
-  outline-offset: 2px;
-}
-.menu-toggle-btn {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border: 1px solid #cbd5e1;
-  border-radius: 0.65rem;
-  background: #ffffff;
-  color: #0f172a;
-  font-size: 1.35rem;
-  font-weight: 700;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.sidebar-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.45);
-  z-index: 998;
-}
-
-.sidebar-backdrop.active {
-  display: block;
-}
-
-@media (max-width: 960px) {
-  .menu-toggle-btn {
-    display: inline-flex;
-  }
-
-  .sidebar {
-    display: flex !important;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 250px;
-    z-index: 999;
-    transform: translateX(-100%);
-    transition: transform 0.25s ease;
-  }
-
-  .sidebar.open {
-    transform: translateX(0);
-  }
-
-  .main-content {
-    margin-left: 0;
-    padding: 1rem;
-  }
-}
+h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); }
+h2 { font-size: clamp(1.25rem, 3vw, 1.8rem); }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
