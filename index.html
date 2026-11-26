@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - GSJA GALILEA</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="login-page">
+      <main class="login-card">
+        <div class="card-brand">
+          <img
+            src="assets/logo-gsja.jpg"
+            alt="Logo GSJA GALILEA"
+            class="card-logo"
+          />
+          <div class="card-title">GSJA GALILEA</div>
+          <div class="card-subtitle">Sistem Arsip Jemaat &amp; Keuangan</div>
+        </div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email Pengurus</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Masukkan email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Masukkan password"
+              required
+            />
+          </div>
+
+          <button type="submit" id="loginBtn">Masuk</button>
+        </form>
+
+        <p id="loginMessage" role="alert"></p>
+      </main>
+    </div>
+
+    <!-- 1. Pustaka Supabase JS v2 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- 2. Konfigurasi URL & Key Supabase -->
+    <script src="js/supabase-config.js"></script>
+
+    <!-- 3. Handler login langsung di index.html -->
+    <script>
+      (function () {
+        const form = document.getElementById("loginForm");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const submitBtn = document.getElementById("loginBtn");
+        const messageEl = document.getElementById("loginMessage");
+
+        function showMessage(text, isError = true) {
+          messageEl.textContent = text;
+          messageEl.style.color = isError ? "#b91c1c" : "#15803d";
+        }
+
+        const client =
+          typeof supabaseClient !== "undefined"
+            ? supabaseClient
+            : typeof supabase !== "undefined" &&
+                typeof supabase.auth?.signInWithPassword === "function"
+              ? supabase
+              : null;
+
+        if (!client) {
+          showMessage(
+            "Klien Supabase belum siap. Periksa isi js/supabase-config.js dan urutan pemuatan script.",
+          );
+        }
+
+        form.addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const email = emailInput.value.trim();
+          const password = passwordInput.value;
+
+          if (!email || !password) {
+            showMessage("Email dan password wajib diisi.");
+            return;
+          }
+
+          if (!client) {
+            showMessage("Konfigurasi Supabase belum ditemukan.");
+            return;
+          }
+
+          submitBtn.disabled = true;
+          showMessage("Sedang memproses login...", false);
+
+          try {
+            const { data, error } = await client.auth.signInWithPassword({
+              email: email,
+              password: password,
+            });
+
+            if (error) {
+              showMessage("Login gagal: " + error.message);
+              submitBtn.disabled = false;
+              return;
+            }
+
+            showMessage("Login berhasil! Mengalihkan ke Dashboard...", false);
+            window.location.href = "dashboard.html";
+          } catch (err) {
+            showMessage("Terjadi kesalahan tak terduga: " + err.message);
+            submitBtn.disabled = false;
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

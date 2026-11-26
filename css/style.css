@@ -1,0 +1,783 @@
+/* === FORM & TABEL DATA === */
+.card-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.card-section h3 {
+  margin-bottom: 1.2rem;
+  color: #0f172a;
+}
+
+.grid-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.grid-form select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: white;
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  margin-top: 0.5rem;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  padding: 0.6rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 300px;
+  font-size: 0.9rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.data-table th {
+  background-color: #f8fafc;
+  color: #334155;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.data-table tbody tr {
+  background: #ffffff;
+  transition: background 0.15s ease;
+}
+
+.data-table tbody tr:hover {
+  background: #f1f5f9;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.badge-aktif {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.badge-nonaktif {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.btn-hapus {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: none;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.btn-hapus:hover {
+  background-color: #fecaca;
+}
+
+/* ============================================================
+   MODERN LOGIN PAGE (index.html)
+   ============================================================ */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    #dc2626 0%,
+    #ffffff 45%,
+    #ffffff 55%,
+    #dc2626 100%
+  );
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(220, 38, 38, 0.15);
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  z-index: 20;
+}
+
+.card-brand {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+.card-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 14px;
+  background: white;
+  padding: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 0.75rem;
+}
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.25rem;
+  letter-spacing: -0.5px;
+}
+.card-subtitle {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.form-group {
+  margin-bottom: 1.125rem;
+}
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+.form-group input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  background: #f8fafc;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  background: #ffffff;
+}
+
+#loginBtn {
+  width: 100%;
+  padding: 0.9rem;
+  background: #1e293b;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.25rem;
+  transition:
+    background 0.2s,
+    transform 0.1s;
+}
+#loginBtn:hover:not(:disabled) {
+  background: #0f172a;
+}
+#loginBtn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+#loginBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+#loginMessage {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  min-height: 1.25rem;
+}
+
+/* ============================================================
+   MODERN DASHBOARD (dashboard.html)
+   ============================================================ */
+.dashboard-body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* Logo GSJA sebagai watermark background transparan di seluruh dashboard */
+.logo-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  opacity: 0.07;
+  pointer-events: none;
+  background-image: url("assets/logo-gsja.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 600px;
+  /* Overlay halus agar teks tetap jelas di atas logo */
+  background-color: rgba(241, 245, 249, 0.85);
+  background-blend-mode: soft-light;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 260px;
+  background: #0f172a;
+  color: #ffffff;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+}
+.sidebar-brand {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid #1e293b;
+}
+.sidebar-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  background: #ffffff;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+/* Logo di halaman Jemaat & Keuangan (sidebar brand) */
+.logo-daftar {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  background: #ffffff;
+  padding: 4px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.sidebar-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: -0.25px;
+}
+.sidebar-nav {
+  padding: 1rem 1.25rem;
+  flex: 1;
+  overflow-y: auto;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  border: 1px solid transparent;
+}
+.nav-item:hover {
+  background: #1e293b;
+  color: #ffffff;
+}
+.nav-item.active {
+  background: #3b82f6;
+  color: #ffffff;
+  border-color: #60a5fa;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+.nav-icon {
+  font-size: 1.1rem;
+}
+.sidebar-footer {
+  padding: 1.25rem;
+  border-top: 1px solid #1e293b;
+}
+.btn-logout {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+.btn-logout:hover {
+  background: #334155;
+  color: #ffffff;
+  border-color: #475569;
+}
+
+/* Area utama di samping sidebar */
+.dashboard-main {
+  margin-left: 260px;
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Area utama di halaman Jemaat & Keuangan (sisipkan di samping sidebar) */
+.app-layout {
+  display: flex;
+}
+.main-content {
+  margin-left: 260px;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.topbar-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.logo-mark {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 3px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+}
+.topbar-left h1.topbar-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  color: #0f172a;
+}
+.topbar-subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.user-email {
+  font-size: 0.875rem;
+  color: #475569;
+  background: #ffffff;
+  padding: 0.4rem 0.85rem;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #0f172a;
+}
+.section-subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0 0 1.5rem;
+}
+
+/* Kartu statistik */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+.stat-card {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #f1f5f9;
+}
+.stat-card .stat-label {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.stat-card .stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1;
+}
+.stat-card .stat-icon {
+  font-size: 2rem;
+  opacity: 0.2;
+}
+
+/* Section Keuangan */
+.keuangan-section {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f1f5f9;
+}
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #64748b;
+}
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.empty-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #334155;
+  margin: 0 0 0.5rem;
+}
+.empty-desc {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Responsif: sidebar menyembunyikan di layar kecil */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  #sidebarToggle:checked ~ .sidebar {
+    transform: translateX(0);
+  }
+  .dashboard-main {
+    margin-left: 0;
+  }
+  .logo-corner {
+    top: 1rem;
+    left: 1rem;
+  }
+  .logo-img {
+    width: 50px;
+    height: 50px;
+  }
+  .login-card {
+    padding: 1.75rem 1.25rem;
+  }
+}
+
+/* ============================================================
+   HALAMAN DATA JEMAAT (pages/jemaat.html)
+   ============================================================ */
+
+/* Tombol toggle sidebar di HP (disembunyikan di desktop) */
+.topbar-menu {
+  display: none;
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.55rem 0.7rem;
+  cursor: pointer;
+  font-size: 1.15rem;
+  color: #334155;
+  line-height: 1;
+}
+
+/* Susunan topbar di halaman jemaat: menu toggle di samping judul */
+.page-jemaat .topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+/* Kartu konten (form dan tabel terpisah) */
+.card {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1.5rem;
+}
+.card h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Status sesi di atas form */
+#statusJemaat {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0 0 1rem;
+  min-height: 1.25rem;
+}
+
+/* Form input jemaat */
+#jemaatForm > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+#jemaatForm label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.35rem;
+}
+
+#jemaatForm input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  background: #f8fafc;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+#jemaatForm input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  background: #ffffff;
+}
+
+#simpanJemaatBtn {
+  width: 100%;
+  padding: 0.85rem;
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition:
+    background 0.2s,
+    transform 0.1s;
+}
+
+#simpanJemaatBtn:hover:not(:disabled) {
+  background: #1e293b;
+}
+#simpanJemaatBtn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+#simpanJemaatBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+#jemaatMessage {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  min-height: 1.25rem;
+  word-break: break-word;
+}
+
+/* Wrapper tabel agar bisa di-scroll horizontal di HP */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 1rem;
+}
+
+/* Tombol hapus pada tabel jemaat (kelas yang di-generate oleh jemaat.js) */
+.btn-hapus-jemaat {
+  display: inline-flex;
+  align-items: center;
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.btn-hapus-jemaat:hover {
+  background-color: #dc2626;
+  color: #ffffff;
+  border-color: #dc2626;
+}
+
+.btn-hapus-jemaat:focus-visible {
+  outline: 2px solid #dc2626;
+  outline-offset: 2px;
+}
+.menu-toggle-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.65rem;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 1.35rem;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 998;
+}
+
+.sidebar-backdrop.active {
+  display: block;
+}
+
+@media (max-width: 960px) {
+  .menu-toggle-btn {
+    display: inline-flex;
+  }
+
+  .sidebar {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+}

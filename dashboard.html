@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - GSJA GALILEA</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .dash-grid-4 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .dash-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        gap: 1.25rem;
+        margin-bottom: 1.5rem;
+      }
+      .stat-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.9rem;
+        padding: 1.15rem 1.25rem;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      }
+      .stat-label {
+        display: block;
+        font-size: 0.84rem;
+        color: #64748b;
+        margin-bottom: 0.35rem;
+      }
+      .stat-value {
+        display: block;
+        font-size: 1.45rem;
+        font-weight: 800;
+        color: #0f172a;
+      }
+      .stat-sub {
+        display: block;
+        font-size: 0.8rem;
+        color: #475569;
+        margin-top: 0.3rem;
+      }
+      .ratio-bar-wrap {
+        width: 100%;
+        height: 12px;
+        background: #e2e8f0;
+        border-radius: 999px;
+        overflow: hidden;
+        margin: 0.75rem 0;
+      }
+      .ratio-bar-fill {
+        height: 100%;
+        width: 0%;
+        background: #16a34a;
+        border-radius: 999px;
+        transition:
+          width 0.35s ease,
+          background-color 0.35s ease;
+      }
+      .ratio-meta {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        font-size: 0.86rem;
+        color: #334155;
+      }
+      .badge-status {
+        display: inline-block;
+        padding: 0.22rem 0.65rem;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        background: #dcfce7;
+        color: #166534;
+      }
+      .badge-status.waspada {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .badge-status.tinggi {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .badge-kk {
+        display: inline-block;
+        padding: 0.2rem 0.55rem;
+        border-radius: 999px;
+        font-size: 0.76rem;
+        font-weight: 700;
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .ai-box {
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.85rem;
+        padding: 1rem 1.15rem;
+        margin-top: 0.85rem;
+        font-size: 0.92rem;
+        line-height: 1.6;
+        color: #1e293b;
+        white-space: pre-line;
+      }
+      .btn-ai {
+        background: #0f172a;
+        color: #ffffff;
+        width: auto;
+        padding: 0.7rem 1.2rem;
+        border-radius: 0.65rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn-ai:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo-bg"></div>
+
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img
+            src="assets/logo-gsja.jpg"
+            alt="Logo GSJA GALILEA"
+            class="sidebar-logo"
+          />
+          <div class="sidebar-title">GSJA GALILEA</div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Navigasi utama">
+          <a href="dashboard.html" class="nav-item active" aria-current="page">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Dashboard</span>
+          </a>
+          <a href="pages/jemaat.html" class="nav-item">
+            <span class="nav-icon">👥</span>
+            <span class="nav-label">Data Jemaat</span>
+          </a>
+          <a href="pages/keuangan.html" class="nav-item">
+            <span class="nav-icon">💰</span>
+            <span class="nav-label">Keuangan</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button type="button" id="logoutBtn" class="btn-logout">
+            Keluar
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <h1>Dashboard</h1>
+            <p id="statusDashboard">
+              Sistem Arsip Jemaat & Keuangan GSJA GALILEA
+            </p>
+          </div>
+          <div>
+            <span id="userEmail" class="user-badge">Memuat akun...</span>
+          </div>
+        </header>
+
+        <!-- RINGKASAN UTAMA -->
+        <section>
+          <h2>Ringkasan Utama</h2>
+          <div class="dash-grid-4">
+            <div class="stat-card">
+              <span class="stat-label">Total Jemaat</span>
+              <span class="stat-value" id="cardTotalJemaat">0</span>
+              <span class="stat-sub" id="cardTotalKk">0 Kartu Keluarga</span>
+            </div>
+
+            <div class="stat-card">
+              <span class="stat-label">Total Dana Keseluruhan</span>
+              <span class="stat-value" id="cardTotalDana">Rp 0</span>
+              <span class="stat-sub">Gabungan seluruh pos dana aktif</span>
+            </div>
+
+            <div class="stat-card">
+              <span class="stat-label">Saldo Kas Umum</span>
+              <span class="stat-value" id="cardSaldoKas">Rp 0</span>
+              <span class="stat-sub">Dana operasional bersih</span>
+            </div>
+
+            <div class="stat-card">
+              <span class="stat-label">Rasio Belanja Kas</span>
+              <span class="stat-value" id="cardRasioPersen">0%</span>
+              <span class="stat-sub" id="cardRasioKet"
+                >Belum ada transaksi kas</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- RASIO PEMASUKAN VS PENGELUARAN & ANALISIS AI -->
+        <div class="dash-grid-2">
+          <section>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.5rem;
+              "
+            >
+              <h2 style="margin: 0">Rasio Kas Operasional</h2>
+              <span id="badgeKesehatanKas" class="badge-status"
+                >Menunggu Data</span
+              >
+            </div>
+            <p style="font-size: 0.88rem; color: #64748b; margin-top: 0.4rem">
+              Perbandingan pengeluaran operasional terhadap pemasukan kas umum
+              gereja.
+            </p>
+
+            <div class="ratio-bar-wrap">
+              <div id="ratioBarFill" class="ratio-bar-fill"></div>
+            </div>
+
+            <div class="ratio-meta">
+              <span
+                >Pemasukan Kas:
+                <strong id="textPemasukanKas">Rp 0</strong></span
+              >
+              <span
+                >Pengeluaran Kas:
+                <strong id="textPengeluaranKas">Rp 0</strong></span
+              >
+            </div>
+            <p
+              id="textSisaKasInfo"
+              style="font-size: 0.85rem; color: #475569; margin-top: 0.75rem"
+            >
+              Memuat perhitungan rasio...
+            </p>
+          </section>
+
+          <section>
+            <h2>Analisis Keuangan AI</h2>
+            <p style="font-size: 0.88rem; color: #64748b; margin-top: 0.4rem">
+              Evaluasi otomatis rasio pemasukan, pengeluaran, dan capaian janji
+              iman untuk pengurus.
+            </p>
+            <button type="button" id="btnAnalisisAi" class="btn-ai">
+              Analisis Kondisi Keuangan
+            </button>
+            <div id="hasilAnalisisAi" class="ai-box">
+              Klik tombol di atas untuk melihat ringkasan rasio dan rekomendasi
+              pengelolaan dana gereja.
+            </div>
+          </section>
+        </div>
+
+        <!-- RINCIAN 4 POS KEUANGAN -->
+        <section>
+          <h2>Rincian Per Pos Keuangan</h2>
+          <div class="dash-grid-4">
+            <div class="stat-card">
+              <span class="stat-label">1. Persepuluhan</span>
+              <span class="stat-value" id="posPersepuluhan">Rp 0</span>
+              <span class="stat-sub" id="subPersepuluhan"
+                >0 transaksi tercatat</span
+              >
+            </div>
+
+            <div class="stat-card">
+              <span class="stat-label">2. Dana Pembangunan</span>
+              <span class="stat-value" id="posPembangunan">Rp 0</span>
+              <span class="stat-sub" id="subPembangunan"
+                >0 transaksi tercatat</span
+              >
+            </div>
+
+            <div class="stat-card">
+              <span class="stat-label">3. Realisasi Janji Iman</span>
+              <span class="stat-value" id="posJanjiIman">Rp 0</span>
+              <span class="stat-sub" id="subJanjiIman"
+                >Target tahun ini: Rp 0</span
+              >
+            </div>
+
+            <div class="stat-card">
+              <span class="stat-label">4. Kas Umum (Bersih)</span>
+              <span class="stat-value" id="posKasUmum">Rp 0</span>
+              <span class="stat-sub" id="subKasUmum"
+                >Masuk Rp 0 | Keluar Rp 0</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- RIWAYAT TRANSAKSI TERBARU -->
+        <section id="keuangan">
+          <h2>Aktivitas Keuangan Terbaru</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Pos Dana</th>
+                <th>KK / Kategori</th>
+                <th>Keterangan</th>
+                <th>Nominal</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyAktivitasTerbaru">
+              <tr>
+                <td colspan="5">Memuat aktivitas keuangan terbaru...</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

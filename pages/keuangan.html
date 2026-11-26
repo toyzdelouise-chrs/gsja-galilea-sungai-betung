@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keuangan Gereja - GSJA GALILEA</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .keu-summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .keu-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.85rem;
+        padding: 1.1rem 1.25rem;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      }
+      .keu-card-label {
+        display: block;
+        font-size: 0.82rem;
+        color: #64748b;
+        margin-bottom: 0.35rem;
+      }
+      .keu-card-value {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .tab-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+      }
+      .tab-btn {
+        padding: 0.65rem 1.15rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.65rem;
+        background: #ffffff;
+        color: #334155;
+        font-weight: 600;
+        cursor: pointer;
+        width: auto;
+      }
+      .tab-btn.active {
+        background: #0f172a;
+        color: #ffffff;
+        border-color: #0f172a;
+      }
+      .tab-panel {
+        display: none;
+      }
+      .tab-panel.active {
+        display: block;
+      }
+      .keu-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+      .keu-select,
+      .keu-input {
+        width: 100%;
+        padding: 0.75rem 0.95rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.65rem;
+        font-size: 0.95rem;
+        background-color: #ffffff;
+        color: #0f172a;
+      }
+      .kk-detect-box {
+        padding: 0.72rem 0.95rem;
+        border-radius: 0.65rem;
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        color: #1e40af;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.85rem;
+      }
+      .kk-detect-box.warning {
+        background: #fef3c7;
+        border-color: #fde68a;
+        color: #92400e;
+      }
+      .badge-kk {
+        display: inline-block;
+        padding: 0.22rem 0.6rem;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .badge-masuk {
+        display: inline-block;
+        padding: 0.22rem 0.6rem;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        background: #dcfce7;
+        color: #166534;
+      }
+      .badge-keluar {
+        display: inline-block;
+        padding: 0.22rem 0.6rem;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .sub-info {
+        display: block;
+        font-size: 0.8rem;
+        color: #64748b;
+        margin-top: 0.2rem;
+      }
+      .split-forms {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.25rem;
+        margin-bottom: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img
+            src="../assets/logo-gsja.png"
+            alt="Logo GSJA GALILEA"
+            class="logo-daftar"
+          />
+          <span>GSJA GALILEA</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Navigasi utama">
+          <a href="../dashboard.html" class="nav-item">Dashboard</a>
+          <a href="jemaat.html" class="nav-item">Data Jemaat</a>
+          <a href="keuangan.html" class="nav-item active">Keuangan</a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button type="button" id="logoutBtn" class="btn-logout">
+            Keluar
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <h1>Manajemen Keuangan</h1>
+            <p id="statusKeuangan">Memeriksa sesi...</p>
+          </div>
+          <div>
+            <span id="userEmail" class="user-badge">Memuat akun...</span>
+          </div>
+        </header>
+
+        <!-- RINGKASAN SALDO TIAP POS -->
+        <div class="keu-summary-grid">
+          <div class="keu-card">
+            <span class="keu-card-label">Total Persepuluhan</span>
+            <span class="keu-card-value" id="totalPersepuluhanCard">Rp 0</span>
+          </div>
+          <div class="keu-card">
+            <span class="keu-card-label">Total Dana Pembangunan</span>
+            <span class="keu-card-value" id="totalPembangunanCard">Rp 0</span>
+          </div>
+          <div class="keu-card">
+            <span class="keu-card-label">Realisasi Janji Iman</span>
+            <span class="keu-card-value" id="totalJanjiImanCard">Rp 0</span>
+          </div>
+          <div class="keu-card">
+            <span class="keu-card-label">Saldo Kas Umum</span>
+            <span class="keu-card-value" id="saldoKasUmumCard">Rp 0</span>
+          </div>
+        </div>
+
+        <!-- NAVIGASI TAB KATEGORI -->
+        <div class="tab-bar" role="tablist">
+          <button
+            type="button"
+            class="tab-btn active"
+            data-tab="tabPersepuluhan"
+          >
+            1. Persepuluhan
+          </button>
+          <button type="button" class="tab-btn" data-tab="tabPembangunan">
+            2. Pembangunan
+          </button>
+          <button type="button" class="tab-btn" data-tab="tabJanjiIman">
+            3. Janji Iman
+          </button>
+          <button type="button" class="tab-btn" data-tab="tabKasUmum">
+            4. Kas Umum
+          </button>
+        </div>
+
+        <!-- TAB 1: PERSEPULUHAN -->
+        <div id="tabPersepuluhan" class="tab-panel active">
+          <section>
+            <h2>Input Persepuluhan Keluarga</h2>
+            <form id="formPersepuluhan">
+              <div class="keu-grid-2">
+                <div>
+                  <label for="persJemaatSelect">Nama Penyetor (Jemaat)</label>
+                  <select id="persJemaatSelect" class="keu-select" required>
+                    <option value="">-- Pilih Nama Penyetor --</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="persNominalInput">Nominal (Rp)</label>
+                  <input
+                    type="number"
+                    id="persNominalInput"
+                    class="keu-input"
+                    min="1000"
+                    step="any"
+                    placeholder="Contoh: 500000"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div id="persKkInfo" class="kk-detect-box warning">
+                Pilih nama penyetor untuk mendeteksi kode KK secara otomatis.
+              </div>
+
+              <div class="keu-grid-2">
+                <div>
+                  <label for="persBulanSelect">Bulan Persepuluhan</label>
+                  <select id="persBulanSelect" class="keu-select" required>
+                    <option value="1">Januari</option>
+                    <option value="2">Februari</option>
+                    <option value="3">Maret</option>
+                    <option value="4">April</option>
+                    <option value="5">Mei</option>
+                    <option value="6">Juni</option>
+                    <option value="7">Juli</option>
+                    <option value="8">Agustus</option>
+                    <option value="9">September</option>
+                    <option value="10">Oktober</option>
+                    <option value="11">November</option>
+                    <option value="12">Desember</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="persTahunInput">Tahun</label>
+                  <input
+                    type="number"
+                    id="persTahunInput"
+                    class="keu-input"
+                    min="2020"
+                    max="2100"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="persTanggalInput">Tanggal Setor</label>
+                  <input
+                    type="date"
+                    id="persTanggalInput"
+                    class="keu-input"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="persKetInput">Keterangan (Opsional)</label>
+                <input
+                  type="text"
+                  id="persKetInput"
+                  class="keu-input"
+                  placeholder="Contoh: Transfer via perwakilan anak pertama"
+                />
+              </div>
+
+              <button type="submit" id="btnSimpanPers">
+                Simpan Persepuluhan
+              </button>
+            </form>
+            <p id="msgPersepuluhan" role="alert"></p>
+          </section>
+
+          <section>
+            <h2>Riwayat Setoran Persepuluhan</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Kode KK & Keluarga</th>
+                  <th>Disetor Oleh</th>
+                  <th>Periode</th>
+                  <th>Nominal</th>
+                  <th>Keterangan</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyPersepuluhan">
+                <tr>
+                  <td colspan="7">Memuat data persepuluhan...</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+        <!-- TAB 2: PEMBANGUNAN -->
+        <div id="tabPembangunan" class="tab-panel">
+          <section>
+            <h2>Input Dana Pembangunan</h2>
+            <form id="formPembangunan">
+              <div class="keu-grid-2">
+                <div>
+                  <label for="pembJemaatSelect">Nama Penyetor (Jemaat)</label>
+                  <select id="pembJemaatSelect" class="keu-select" required>
+                    <option value="">-- Pilih Nama Penyetor --</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="pembNominalInput">Nominal (Rp)</label>
+                  <input
+                    type="number"
+                    id="pembNominalInput"
+                    class="keu-input"
+                    min="1000"
+                    step="any"
+                    placeholder="Contoh: 250000"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div id="pembKkInfo" class="kk-detect-box warning">
+                Pilih nama penyetor untuk mendeteksi kode KK secara otomatis.
+              </div>
+
+              <div class="keu-grid-2">
+                <div>
+                  <label for="pembTanggalInput">Tanggal Setor</label>
+                  <input
+                    type="date"
+                    id="pembTanggalInput"
+                    class="keu-input"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="pembKetInput">Keterangan (Opsional)</label>
+                  <input
+                    type="text"
+                    id="pembKetInput"
+                    class="keu-input"
+                    placeholder="Contoh: Sumbangan renovasi gedung"
+                  />
+                </div>
+              </div>
+
+              <button type="submit" id="btnSimpanPemb">
+                Simpan Dana Pembangunan
+              </button>
+            </form>
+            <p id="msgPembangunan" role="alert"></p>
+          </section>
+
+          <section>
+            <h2>Rekap Dana Pembangunan per KK</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Kode KK</th>
+                  <th>Kepala Keluarga</th>
+                  <th>Jumlah Transaksi</th>
+                  <th>Total Pembangunan</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyRekapPembangunan">
+                <tr>
+                  <td colspan="4">Memuat rekap pembangunan...</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section>
+            <h2>Riwayat Setoran Pembangunan</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Kode KK & Keluarga</th>
+                  <th>Disetor Oleh</th>
+                  <th>Nominal</th>
+                  <th>Keterangan</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyPembangunan">
+                <tr>
+                  <td colspan="6">Memuat riwayat pembangunan...</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+        <!-- TAB 3: JANJI IMAN -->
+        <div id="tabJanjiIman" class="tab-panel">
+          <div class="split-forms">
+            <section>
+              <h2>A. Atur Target Janji Iman per KK</h2>
+              <form id="formTargetJanji">
+                <div>
+                  <label for="targetKkSelect">Pilih Kartu Keluarga</label>
+                  <select id="targetKkSelect" class="keu-select" required>
+                    <option value="">-- Pilih Kartu Keluarga --</option>
+                  </select>
+                </div>
+
+                <div class="keu-grid-2">
+                  <div>
+                    <label for="targetTahunInput">Tahun</label>
+                    <input
+                      type="number"
+                      id="targetTahunInput"
+                      class="keu-input"
+                      min="2020"
+                      max="2100"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="targetNominalInput">Target Komitmen (Rp)</label>
+                    <input
+                      type="number"
+                      id="targetNominalInput"
+                      class="keu-input"
+                      min="0"
+                      step="any"
+                      placeholder="Contoh: 6000000"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <button type="submit" id="btnSimpanTarget">
+                  Simpan / Perbarui Target
+                </button>
+              </form>
+              <p id="msgTargetJanji" role="alert"></p>
+            </section>
+
+            <section>
+              <h2>B. Input Cicilan / Setoran Janji Iman</h2>
+              <form id="formSetorJanji">
+                <div>
+                  <label for="janjiJemaatSelect">Nama Penyetor (Jemaat)</label>
+                  <select id="janjiJemaatSelect" class="keu-select" required>
+                    <option value="">-- Pilih Nama Penyetor --</option>
+                  </select>
+                </div>
+
+                <div id="janjiKkInfo" class="kk-detect-box warning">
+                  Pilih nama penyetor untuk mendeteksi kode KK secara otomatis.
+                </div>
+
+                <div class="keu-grid-2">
+                  <div>
+                    <label for="janjiTahunInput">Untuk Tahun</label>
+                    <input
+                      type="number"
+                      id="janjiTahunInput"
+                      class="keu-input"
+                      min="2020"
+                      max="2100"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="janjiNominalInput">Nominal Setor (Rp)</label>
+                    <input
+                      type="number"
+                      id="janjiNominalInput"
+                      class="keu-input"
+                      min="1000"
+                      step="any"
+                      placeholder="Contoh: 500000"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="keu-grid-2">
+                  <div>
+                    <label for="janjiTanggalInput">Tanggal Setor</label>
+                    <input
+                      type="date"
+                      id="janjiTanggalInput"
+                      class="keu-input"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="janjiKetInput">Keterangan</label>
+                    <input
+                      type="text"
+                      id="janjiKetInput"
+                      class="keu-input"
+                      placeholder="Contoh: Cicilan ke-1"
+                    />
+                  </div>
+                </div>
+
+                <button type="submit" id="btnSimpanJanji">
+                  Simpan Setoran Janji Iman
+                </button>
+              </form>
+              <p id="msgSetorJanji" role="alert"></p>
+            </section>
+          </div>
+
+          <section>
+            <h2>Progres Komitmen Janji Iman per KK</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Kode KK</th>
+                  <th>Kepala Keluarga</th>
+                  <th>Tahun</th>
+                  <th>Target Komitmen</th>
+                  <th>Sudah Disetor</th>
+                  <th>Sisa Target</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyProgresJanji">
+                <tr>
+                  <td colspan="7">Memuat progres janji iman...</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section>
+            <h2>Riwayat Setoran Janji Iman</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Kode KK & Keluarga</th>
+                  <th>Disetor Oleh</th>
+                  <th>Tahun</th>
+                  <th>Nominal</th>
+                  <th>Keterangan</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyRiwayatJanji">
+                <tr>
+                  <td colspan="7">Memuat riwayat janji iman...</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+        <!-- TAB 4: KAS UMUM -->
+        <div id="tabKasUmum" class="tab-panel">
+          <section>
+            <h2>Input Kas Umum & Operasional Gereja</h2>
+            <form id="formKasUmum">
+              <div class="keu-grid-2">
+                <div>
+                  <label for="kasJenisSelect">Jenis Transaksi</label>
+                  <select id="kasJenisSelect" class="keu-select" required>
+                    <option value="Pemasukan">Pemasukan</option>
+                    <option value="Pengeluaran">Pengeluaran</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="kasKategoriInput">Kategori</label>
+                  <input
+                    type="text"
+                    id="kasKategoriInput"
+                    class="keu-input"
+                    placeholder="Contoh: Kolekte Ibadah Minggu / Listrik & Air"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="keu-grid-2">
+                <div>
+                  <label for="kasNominalInput">Nominal (Rp)</label>
+                  <input
+                    type="number"
+                    id="kasNominalInput"
+                    class="keu-input"
+                    min="1000"
+                    step="any"
+                    placeholder="Contoh: 1200000"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="kasTanggalInput">Tanggal</label>
+                  <input
+                    type="date"
+                    id="kasTanggalInput"
+                    class="keu-input"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="kasKetInput">Keterangan</label>
+                <input
+                  type="text"
+                  id="kasKetInput"
+                  class="keu-input"
+                  placeholder="Catatan tambahan transaksi"
+                />
+              </div>
+
+              <button type="submit" id="btnSimpanKas">
+                Simpan Transaksi Kas
+              </button>
+            </form>
+            <p id="msgKasUmum" role="alert"></p>
+          </section>
+
+          <section>
+            <h2>Riwayat Kas Umum Gereja</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Jenis</th>
+                  <th>Kategori</th>
+                  <th>Nominal</th>
+                  <th>Keterangan</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyKasUmum">
+                <tr>
+                  <td colspan="6">Memuat riwayat kas umum...</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/keuangan.js"></script>
+  </body>
+</html>
