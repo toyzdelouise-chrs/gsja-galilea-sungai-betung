@@ -4,26 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Data Jemaat - GSJA GALILEA Sungai Betung</title>
-    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <style>
-      /* ============================================================
-         MODERN DATA JEMAAT (pages/jemaat.html)
-         ============================================================ */
       :root {
-        --primary: #2563eb;
-        --primary-hover: #1d4ed8;
-        --primary-light: #eff6ff;
+        --primary: #b91c1c;
+        --primary-hover: #991b1b;
+        --primary-light: #fee2e2;
         --danger: #dc2626;
         --danger-light: #fef2f2;
         --success: #15803d;
         --success-light: #f0fdf4;
-        --bg: #f8fafc;
-        --card: #ffffff;
+        --card: rgba(255, 255, 255, 0.96);
         --text: #0f172a;
         --text-muted: #64748b;
-        --border: #e2e8f0;
-        --radius: 12px;
-        --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        --border: rgba(220, 38, 38, 0.16);
+        --radius: 0.9rem;
+        --shadow: 0 6px 18px rgba(153, 27, 27, 0.07);
         --transition: 0.2s ease;
       }
 
@@ -31,119 +27,97 @@
         box-sizing: border-box;
       }
 
-      body {
-        margin: 0;
-        font-family:
-          ui-sans-serif,
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          "Helvetica Neue",
-          Arial,
-          sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        line-height: 1.5;
-      }
-
-      .app-layout {
-        display: flex;
-        min-height: 100vh;
-      }
-
-      .main-content {
-        flex: 1;
-        width: 100%;
-        min-height: 100vh;
-        padding: 2rem;
-      }
-
       .sidebar-brand img.logo-daftar {
         width: 34px;
         height: 34px;
       }
 
-      /* Page header */
+      /* Header & Kapsul Profil Kanan Atas */
       .page-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 1rem;
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid var(--border);
         flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
       }
 
-      .page-header > div:first-child h1 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--text);
-        margin: 0 0 0.25rem;
-        letter-spacing: -0.25px;
+      .page-title-group h1 {
+        margin: 0 0 0.25rem 0;
+      }
+
+      .page-title-group p {
+        margin: 0;
+        color: #64748b;
+      }
+
+      .user-profile-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(220, 38, 38, 0.24);
+        padding: 0.4rem 0.95rem 0.4rem 0.45rem;
+        border-radius: 999px;
+        box-shadow: 0 4px 12px rgba(153, 27, 27, 0.08);
+        max-width: 100%;
+      }
+
+      .user-avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+        color: #ffffff;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        justify-content: center;
+        flex-shrink: 0;
       }
 
-      .page-header > div:first-child p {
-        margin: 0;
+      .user-profile-badge .user-badge {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        color: #7f1d1d !important;
+        font-weight: 600;
         font-size: 0.9rem;
-        color: var(--text-muted);
-      }
-
-      .user-badge {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        background: #f1f5f9;
-        padding: 0.45rem 0.9rem;
-        border-radius: 20px;
-        border: 1px solid var(--border);
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
-      /* Section heading */
+      /* Kartu Section */
+      section {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-top: 4px solid #dc2626;
+        border-radius: var(--radius);
+        padding: 1.35rem 1.5rem;
+        box-shadow: var(--shadow);
+        margin-bottom: 1.5rem;
+      }
+
       section h2 {
         font-size: 1.125rem;
         font-weight: 700;
-        color: var(--text);
-        margin: 0 0 0.75rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
+        color: #7f1d1d;
+        margin: 0 0 1rem 0;
         letter-spacing: -0.25px;
       }
 
-      /* Cards */
-      .card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 1.5rem;
-        box-shadow: var(--shadow);
-        margin-bottom: 1.5rem;
-        transition: var(--transition);
-      }
-
-      .card:hover {
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      }
-
-      .card h2 {
-        margin-top: 0;
-      }
-
-      /* Forms */
+      /* Form & Grid */
       form {
         display: grid;
         gap: 1rem;
       }
 
+      .jemaat-grid-2,
       .form-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
         gap: 1rem;
       }
 
@@ -151,16 +125,19 @@
         display: block;
         font-size: 0.85rem;
         font-weight: 600;
-        color: var(--text-muted);
+        color: #475569;
         margin-bottom: 0.4rem;
       }
 
       input,
-      select {
+      select,
+      .jemaat-select,
+      .jemaat-date,
+      .jemaat-filter-input {
         width: 100%;
-        padding: 0.7rem 0.9rem;
-        border: 1px solid var(--border);
-        border-radius: 8px;
+        padding: 0.72rem 0.9rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.65rem;
         font-size: 0.95rem;
         background: #ffffff;
         color: var(--text);
@@ -168,10 +145,13 @@
       }
 
       input:focus,
-      select:focus {
+      select:focus,
+      .jemaat-select:focus,
+      .jemaat-date:focus,
+      .jemaat-filter-input:focus {
         outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        border-color: #dc2626;
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
       }
 
       input::placeholder {
@@ -183,42 +163,42 @@
         align-items: center;
         gap: 0.6rem;
         font-size: 0.9rem;
-        color: var(--text-muted);
-        padding: 0.9rem 1rem;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        background: #f8fafc;
+        color: #334155;
+        padding: 0.85rem 1rem;
+        border: 1px solid #fecaca;
+        border-radius: 0.65rem;
+        background: #fff5f5;
         cursor: pointer;
         transition: var(--transition);
       }
 
       .checkbox-row:hover {
-        background: #f1f5f9;
-        border-color: #cbd5e1;
+        background: #fee2e2;
       }
 
       .checkbox-row input {
         width: auto;
-        accent-color: var(--primary);
+        accent-color: #dc2626;
       }
 
-      /* Buttons */
+      /* Tombol Utama Merah Gradien */
       button[type="submit"] {
         width: 100%;
         padding: 0.85rem;
-        background: var(--primary);
+        background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
         color: #ffffff;
         border: none;
-        border-radius: 8px;
-        font-size: 1rem;
+        border-radius: 0.65rem;
+        font-size: 0.98rem;
         font-weight: 600;
         cursor: pointer;
+        box-shadow: 0 4px 12px rgba(185, 28, 28, 0.22);
         transition: var(--transition);
         margin-top: 0.25rem;
       }
 
       button[type="submit"]:hover:not(:disabled) {
-        background: var(--primary-hover);
+        filter: brightness(1.07);
         transform: translateY(-1px);
       }
 
@@ -231,7 +211,7 @@
         cursor: not-allowed;
       }
 
-      /* Filter bar */
+      /* Filter Bar */
       .filter-bar {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -239,31 +219,12 @@
         margin-bottom: 1rem;
       }
 
-      .jemaat-select,
-      .jemaat-date,
-      .jemaat-filter-input {
-        width: 100%;
-        padding: 0.75rem 0.95rem;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        font-size: 0.95rem;
-        background-color: #ffffff;
-        color: var(--text);
-      }
-
-      .jemaat-select:focus,
-      .jemaat-date:focus,
-      .jemaat-filter-input:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-      }
-
-      /* Table */
+      /* Tabel */
       .table-wrapper {
         overflow-x: auto;
-        border: 1px solid var(--border);
-        border-radius: 8px;
+        -webkit-overflow-scrolling: touch;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.75rem;
         background: #ffffff;
         margin-top: 0.5rem;
       }
@@ -276,16 +237,16 @@
 
       th,
       td {
-        padding: 0.9rem 1rem;
+        padding: 0.85rem 1rem;
         text-align: left;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid #e2e8f0;
       }
 
       th {
-        background: #f8fafc;
-        color: var(--text-muted);
-        font-weight: 600;
-        font-size: 0.8rem;
+        background: #fff5f5;
+        color: #7f1d1d;
+        font-weight: 700;
+        font-size: 0.78rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
         position: sticky;
@@ -298,302 +259,51 @@
       }
 
       tbody tr:hover {
-        background: #f1f5f9;
+        background: #fef2f2;
       }
 
       tbody tr:last-child td {
         border-bottom: none;
       }
 
-      /* Badges */
+      /* Badge KK */
       .badge-kk {
         display: inline-block;
         padding: 0.22rem 0.6rem;
         border-radius: 999px;
-        font-size: 0.75rem;
+        font-size: 0.76rem;
         font-weight: 700;
-        background: var(--primary-light);
-        color: var(--primary);
+        background: #fee2e2;
+        color: #991b1b;
       }
 
       .badge-kk-kosong {
         background: #f1f5f9;
-        color: var(--text-muted);
+        color: #64748b;
       }
 
-      /* Status messages */
+      /* Pesan Status */
       #kkMessage,
       #jemaatMessage {
         margin-top: 0.75rem;
+        margin-bottom: 0;
         font-size: 0.875rem;
-        font-weight: 500;
+        font-weight: 600;
         min-height: 1.25rem;
         word-break: break-word;
       }
 
-      /* Empty state */
-      .empty-state {
-        text-align: center;
-        padding: 3rem 1rem;
-        color: var(--text-muted);
-      }
-
-      .empty-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        display: block;
-      }
-
-      .empty-title {
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: var(--text);
-        margin: 0 0 0.5rem;
-      }
-
-      .empty-desc {
-        font-size: 0.95rem;
-        margin: 0;
-      }
-
-      /* Responsive */
+      /* Responsif HP */
       @media (max-width: 768px) {
-        .main-content {
-          margin-left: 0;
-          padding: 1rem;
-        }
-
         .page-header {
-          flex-direction: column;
-          align-items: flex-start;
+          flex-direction: column-reverse;
+          align-items: stretch;
           gap: 0.75rem;
         }
 
-        .form-grid {
-          grid-template-columns: 1fr;
+        .user-profile-badge {
+          align-self: flex-end;
+          padding: 0.35rem 0.8rem 0.35rem 0.4rem;
         }
 
-        .filter-bar {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="app-layout">
-      <aside class="sidebar">
-        <div class="sidebar-brand">
-          <img
-            src="../assets/logo-gsja.jpg"
-            alt="Logo GSJA GALILEA"
-            class="logo-daftar"
-          />
-          <span>GSJA GALILEA</span>
-        </div>
-
-        <nav class="sidebar-nav" aria-label="Navigasi utama">
-          <a href="/dashboard.html" class="nav-item">Dashboard</a>
-          <a href="/pages/jemaat.html" class="nav-item active">Data Jemaat</a>
-          <a href="/pages/keuangan.html" class="nav-item">Keuangan</a>
-        </nav>
-
-        <div class="sidebar-footer">
-          <button type="button" id="logoutBtn" class="btn-logout">
-            Keluar
-          </button>
-        </div>
-      </aside>
-
-      <main class="main-content">
-        <header class="page-header">
-          <div>
-            <h1>Data Jemaat & Keluarga</h1>
-            <p id="statusJemaat">Memeriksa sesi...</p>
-          </div>
-          <div>
-            <span id="userEmail" class="user-badge">Memuat akun...</span>
-          </div>
-        </header>
-
-        <!-- BAGIAN 1: BUAT KARTU KELUARGA BARU -->
-        <section id="formKkSection">
-          <h2>1. Buat Kartu Keluarga Baru</h2>
-          <form id="kkForm">
-            <div class="jemaat-grid-2">
-              <div>
-                <label for="kepalaKeluargaInput">Nama Kepala Keluarga</label>
-                <input
-                  type="text"
-                  id="kepalaKeluargaInput"
-                  placeholder="Contoh: Budi Santoso"
-                  required
-                />
-              </div>
-
-              <div>
-                <label for="hpPerwakilanInput"
-                  >No. HP Perwakilan Keluarga</label
-                >
-                <input
-                  type="text"
-                  id="hpPerwakilanInput"
-                  placeholder="Contoh: 081234567890"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label for="alamatKkInput">Alamat Keluarga</label>
-              <input
-                type="text"
-                id="alamatKkInput"
-                placeholder="Contoh: Jl. Galilea No. 10"
-              />
-            </div>
-
-            <label class="checkbox-row">
-              <input type="checkbox" id="autoTambahKepalaCheckbox" checked />
-              <span>Sekaligus simpan Kepala Keluarga ke daftar jemaat</span>
-            </label>
-
-            <button type="submit" id="simpanKkBtn">
-              Buat Kode KK Otomatis
-            </button>
-          </form>
-          <p id="kkMessage" role="alert"></p>
-        </section>
-
-        <!-- BAGIAN 2: TAMBAH ANGGOTA JEMAAT KE KK -->
-        <section id="formJemaatSection">
-          <h2>2. Tambah Anggota Jemaat</h2>
-          <form id="jemaatForm">
-            <div class="jemaat-grid-2">
-              <div>
-                <label for="pilihKkSelect">Pilih Kartu Keluarga</label>
-                <select id="pilihKkSelect" class="jemaat-select">
-                  <option value="">-- Tanpa KK / Pilih Keluarga --</option>
-                </select>
-              </div>
-
-              <div>
-                <label for="hubunganKeluargaSelect"
-                  >Hubungan dalam Keluarga</label
-                >
-                <select id="hubunganKeluargaSelect" class="jemaat-select">
-                  <option value="Kepala Keluarga">Kepala Keluarga</option>
-                  <option value="Istri">Istri</option>
-                  <option value="Anak" selected>Anak</option>
-                  <option value="Orang Tua">Orang Tua</option>
-                  <option value="Anggota Lainnya">Anggota Lainnya</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="jemaat-grid-2">
-              <div>
-                <label for="namaJemaat">Nama Lengkap</label>
-                <input
-                  type="text"
-                  id="namaJemaat"
-                  name="nama"
-                  placeholder="Contoh: Andi Santoso"
-                  required
-                />
-              </div>
-
-              <div>
-                <label for="jenisKelaminSelect">Jenis Kelamin</label>
-                <select id="jenisKelaminSelect" class="jemaat-select">
-                  <option value="Laki-laki">Laki-laki</option>
-                  <option value="Perempuan">Perempuan</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="jemaat-grid-2">
-              <div>
-                <label for="tanggalLahirJemaat">Tanggal Lahir</label>
-                <input
-                  type="date"
-                  id="tanggalLahirJemaat"
-                  class="jemaat-date"
-                />
-              </div>
-
-              <div>
-                <label for="noHpJemaat">No. HP / WhatsApp</label>
-                <input
-                  type="text"
-                  id="noHpJemaat"
-                  name="no_hp"
-                  placeholder="Kosongkan jika ikut HP perwakilan"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label for="alamatJemaat">Alamat</label>
-              <input
-                type="text"
-                id="alamatJemaat"
-                name="alamat"
-                placeholder="Otomatis ikut alamat KK jika dipilih"
-              />
-            </div>
-
-            <button type="submit" id="simpanJemaatBtn">Simpan Jemaat</button>
-          </form>
-
-          <p id="jemaatMessage" role="alert"></p>
-        </section>
-
-        <!-- BAGIAN 3: DAFTAR JEMAAT & FILTER KK -->
-        <section id="daftarJemaatSection">
-          <h2>Daftar Jemaat</h2>
-
-          <div class="filter-bar">
-            <div>
-              <select id="filterKkSelect" class="jemaat-select">
-                <option value="ALL">Semua Kartu Keluarga</option>
-                <option value="NO_KK">Belum Punya KK</option>
-              </select>
-            </div>
-            <div>
-              <input
-                type="text"
-                id="cariJemaatInput"
-                class="jemaat-filter-input"
-                placeholder="Cari nama jemaat, kode KK, atau alamat..."
-              />
-            </div>
-          </div>
-
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Kode KK</th>
-                  <th>Nama Lengkap</th>
-                  <th>Hubungan</th>
-                  <th>No. HP</th>
-                  <th>Alamat</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody id="tabelJemaatBody">
-                <tr>
-                  <td colspan="6">Memuat data jemaat...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/supabase-config.js"></script>
-    <script src="../js/auth.js"></script>
-    <script src="../js/jemaat.js"></script>
-  </body>
-</html>
+        .user-profile-
