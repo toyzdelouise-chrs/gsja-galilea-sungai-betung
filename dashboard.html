@@ -364,4 +364,56 @@
               <span class="stat-label">2. Dana Pembangunan</span>
               <span class="stat-value" id="posPembangunan">Rp 0</span>
               <span class="stat-sub" id="subPembangunan"
-                >0 transaksi tercatat</
+                >0 transaksi tercatat</span
+              >
+            </div>
+
+            <div class="stat-card">
+              <span class="stat-label">3. Realisasi Janji Iman</span>
+              <span class="stat-value" id="posJanjiIman">Rp 0</span>
+              <span class="stat-sub" id="subJanjiIman"
+                >Target tahun ini: Rp 0</span
+              >
+            </div>
+
+            <div class="stat-card">
+              <span class="stat-label">4. Kas Umum (Bersih)</span>
+              <span class="stat-value" id="posKasUmum">Rp 0</span>
+              <span class="stat-sub" id="subKasUmum"
+                >Masuk Rp 0 | Keluar Rp 0</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- RIWAYAT TRANSAKSI TERBARU -->
+        <section id="keuangan">
+          <h2>Aktivitas Keuangan Terbaru</h2>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Pos Dana</th>
+                  <th>KK / Kategori</th>
+                  <th>Keterangan</th>
+                  <th>Nominal</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyAktivitasTerbaru">
+                <tr>
+                  <td colspan="5">Memuat aktivitas keuangan terbaru...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/js/supabase-config.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/dashboard.js"></script>
+  </body>
+</html>
