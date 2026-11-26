@@ -306,4 +306,259 @@
           padding: 0.35rem 0.8rem 0.35rem 0.4rem;
         }
 
-        .user-profile-
+        .user-profile-badge .user-badge {
+          font-size: 0.82rem;
+        }
+
+        section {
+          padding: 1.1rem;
+        }
+
+        .jemaat-grid-2,
+        .form-grid,
+        .filter-bar {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo-bg"></div>
+
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img
+            src="/assets/logo-gsja.jpg"
+            alt="Logo GSJA GALILEA"
+            class="logo-daftar"
+          />
+          <span>GSJA GALILEA</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Navigasi utama">
+          <a href="/dashboard.html" class="nav-item">Dashboard</a>
+          <a
+            href="/pages/jemaat.html"
+            class="nav-item active"
+            aria-current="page"
+            >Data Jemaat</a
+          >
+          <a href="/pages/keuangan.html" class="nav-item">Keuangan</a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button type="button" id="logoutBtn" class="btn-logout">
+            Keluar
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="page-header">
+          <div class="page-title-group">
+            <h1>Data Jemaat & Keluarga</h1>
+            <p id="statusJemaat">Memeriksa sesi...</p>
+          </div>
+          <div class="user-profile-badge">
+            <div class="user-avatar" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                width="18"
+                height="18"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <span id="userEmail" class="user-badge">Memuat akun...</span>
+          </div>
+        </header>
+
+        <!-- BAGIAN 1: BUAT KARTU KELUARGA BARU -->
+        <section id="formKkSection">
+          <h2>1. Buat Kartu Keluarga Baru</h2>
+          <form id="kkForm">
+            <div class="jemaat-grid-2">
+              <div>
+                <label for="kepalaKeluargaInput">Nama Kepala Keluarga</label>
+                <input
+                  type="text"
+                  id="kepalaKeluargaInput"
+                  placeholder="Contoh: Budi Santoso"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="hpPerwakilanInput"
+                  >No. HP Perwakilan Keluarga</label
+                >
+                <input
+                  type="text"
+                  id="hpPerwakilanInput"
+                  placeholder="Contoh: 081234567890"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="alamatKkInput">Alamat Keluarga</label>
+              <input
+                type="text"
+                id="alamatKkInput"
+                placeholder="Contoh: Jl. Galilea No. 10"
+              />
+            </div>
+
+            <label class="checkbox-row">
+              <input type="checkbox" id="autoTambahKepalaCheckbox" checked />
+              <span>Sekaligus simpan Kepala Keluarga ke daftar jemaat</span>
+            </label>
+
+            <button type="submit" id="simpanKkBtn">
+              Buat Kode KK Otomatis
+            </button>
+          </form>
+          <p id="kkMessage" role="alert"></p>
+        </section>
+
+        <!-- BAGIAN 2: TAMBAH ANGGOTA JEMAAT KE KK -->
+        <section id="formJemaatSection">
+          <h2>2. Tambah Anggota Jemaat</h2>
+          <form id="jemaatForm">
+            <div class="jemaat-grid-2">
+              <div>
+                <label for="pilihKkSelect">Pilih Kartu Keluarga</label>
+                <select id="pilihKkSelect" class="jemaat-select">
+                  <option value="">-- Tanpa KK / Pilih Keluarga --</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="hubunganKeluargaSelect"
+                  >Hubungan dalam Keluarga</label
+                >
+                <select id="hubunganKeluargaSelect" class="jemaat-select">
+                  <option value="Kepala Keluarga">Kepala Keluarga</option>
+                  <option value="Istri">Istri</option>
+                  <option value="Anak" selected>Anak</option>
+                  <option value="Orang Tua">Orang Tua</option>
+                  <option value="Anggota Lainnya">Anggota Lainnya</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="jemaat-grid-2">
+              <div>
+                <label for="namaJemaat">Nama Lengkap</label>
+                <input
+                  type="text"
+                  id="namaJemaat"
+                  name="nama"
+                  placeholder="Contoh: Andi Santoso"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="jenisKelaminSelect">Jenis Kelamin</label>
+                <select id="jenisKelaminSelect" class="jemaat-select">
+                  <option value="Laki-laki">Laki-laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="jemaat-grid-2">
+              <div>
+                <label for="tanggalLahirJemaat">Tanggal Lahir</label>
+                <input
+                  type="date"
+                  id="tanggalLahirJemaat"
+                  class="jemaat-date"
+                />
+              </div>
+
+              <div>
+                <label for="noHpJemaat">No. HP / WhatsApp</label>
+                <input
+                  type="text"
+                  id="noHpJemaat"
+                  name="no_hp"
+                  placeholder="Kosongkan jika ikut HP perwakilan"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="alamatJemaat">Alamat</label>
+              <input
+                type="text"
+                id="alamatJemaat"
+                name="alamat"
+                placeholder="Otomatis ikut alamat KK jika dipilih"
+              />
+            </div>
+
+            <button type="submit" id="simpanJemaatBtn">Simpan Jemaat</button>
+          </form>
+
+          <p id="jemaatMessage" role="alert"></p>
+        </section>
+
+        <!-- BAGIAN 3: DAFTAR JEMAAT & FILTER KK -->
+        <section id="daftarJemaatSection">
+          <h2>Daftar Jemaat</h2>
+
+          <div class="filter-bar">
+            <div>
+              <select id="filterKkSelect" class="jemaat-select">
+                <option value="ALL">Semua Kartu Keluarga</option>
+                <option value="NO_KK">Belum Punya KK</option>
+              </select>
+            </div>
+            <div>
+              <input
+                type="text"
+                id="cariJemaatInput"
+                class="jemaat-filter-input"
+                placeholder="Cari nama jemaat, kode KK, atau alamat..."
+              />
+            </div>
+          </div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Kode KK</th>
+                  <th>Nama Lengkap</th>
+                  <th>Hubungan</th>
+                  <th>No. HP</th>
+                  <th>Alamat</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tabelJemaatBody">
+                <tr>
+                  <td colspan="6">Memuat data jemaat...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/js/supabase-config.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/jemaat.js"></script>
+  </body>
+</html>
