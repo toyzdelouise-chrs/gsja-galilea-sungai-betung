@@ -781,3 +781,154 @@
     padding: 1rem;
   }
 }
+/* Tema Gradien Merah Putih & Perapian Tampilan GSJA Galilea */
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  color: #1f2937;
+  background: linear-gradient(135deg, #fecaca 0%, #fff1f2 42%, #ffffff 78%, #fee2e2 100%);
+  min-height: 100vh;
+}
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar Merah Marun Elegan */
+.sidebar {
+  background: linear-gradient(180deg, #991b1b 0%, #7f1d1d 60%, #450a0a 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 4px 0 20px rgba(127, 29, 29, 0.18);
+}
+
+.sidebar-brand span {
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: #ffffff;
+}
+
+.nav-item {
+  color: rgba(255, 255, 255, 0.85) !important;
+  border-radius: 12px !important;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+}
+
+.nav-item.active {
+  background: linear-gradient(90deg, #ffffff 0%, #ffe4e6 100%) !important;
+  color: #b91c1c !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#logoutBtn {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 10px !important;
+}
+
+#logoutBtn:hover {
+  background: #dc2626 !important;
+}
+
+/* Area Konten Utama Gradien Merah Putih */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background: linear-gradient(160deg, rgba(254, 202, 202, 0.55) 0%, rgba(255, 255, 255, 0.92) 50%, rgba(254, 226, 226, 0.65) 100%) !important;
+}
+
+.page-header h1,
+.main-content h1,
+.main-content h2 {
+  color: #7f1d1d;
+  letter-spacing: -0.3px;
+}
+
+/* Perapian Susunan Kartu Statistik */
+.dash-grid-4,
+.stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+  gap: 1.1rem !important;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 0.4rem !important;
+  background: rgba(255, 255, 255, 0.94) !important;
+  border: 1px solid rgba(220, 38, 38, 0.16) !important;
+  border-top: 4px solid #dc2626 !important;
+  border-radius: 16px !important;
+  padding: 1.25rem !important;
+  box-shadow: 0 8px 22px rgba(153, 27, 27, 0.08) !important;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(153, 27, 27, 0.14) !important;
+}
+
+/* Kartu Konten & Tabel */
+.card,
+.panel,
+.table-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(220, 38, 38, 0.14) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 6px 20px rgba(153, 27, 27, 0.06) !important;
+}
+
+/* Penyesuaian Otomatis Semua Ukuran HP */
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column !important;
+  }
+
+  .sidebar {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 0.85rem 1rem !important;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .sidebar-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.4rem !important;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .nav-item {
+    white-space: nowrap;
+    padding: 0.55rem 0.85rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .main-content {
+    padding: 1.1rem !important;
+  }
+
+  .dash-grid-4,
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
