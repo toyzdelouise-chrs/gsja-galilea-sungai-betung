@@ -1198,3 +1198,48 @@ body {
     padding: 0.6rem 0.75rem;
   }
 }
+
+@media (max-width: 960px) {
+  .mobile-menu-btn,
+  #mobileMenuBtn,
+  .menu-toggle,
+  .sidebar-toggle {
+    position: fixed !important;
+    top: 1.15rem !important;
+    left: 1.15rem !important;
+    z-index: 1050 !important;
+    background: #ffffff !important;
+    border: 1px solid #fecaca !important;
+    border-radius: 0.65rem !important;
+    box-shadow: 0 4px 12px rgba(153, 27, 27, 0.12) !important;
+  }
+
+  .page-header {
+    padding-left: 3.2rem !important;
+  }
+}
+
+@media (max-width: 960px) {
+  #menuToggleBtn,
+  .menu-toggle-btn {
+    position: fixed !important;
+    top: 1rem !important;
+    left: 1rem !important;
+    z-index: 1050 !important;
+    background: #ffffff !important;
+    color: #991b1b !important;
+    border: 1px solid #fecaca !important;
+    border-radius: 0.65rem !important;
+    box-shadow: 0 4px 12px rgba(153, 27, 27, 0.14) !important;
+  }
+
+  .page-header {
+    padding-left: 3.2rem !important;
+  }
+
+  /* Sembunyikan tombol garis tiga saat sidebar terbuka agar tidak bertumpuk */
+  body.sidebar-is-open #menuToggleBtn {
+    opacity: 0;
+    pointer-events: none;
+  }
+}

@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleBtn.className = "menu-toggle-btn";
     toggleBtn.setAttribute("aria-label", "Buka menu navigasi");
     toggleBtn.textContent = "☰";
-    pageHeader.insertBefore(toggleBtn, pageHeader.firstChild);
+    document.body.appendChild(toggleBtn);
   }
 
   let backdrop = document.querySelector(".sidebar-backdrop");
