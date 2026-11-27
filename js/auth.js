@@ -184,11 +184,13 @@ document.addEventListener("DOMContentLoaded", function () {
   function closeSidebar() {
     sidebar.classList.remove("open");
     backdrop.classList.remove("active");
+    document.body.classList.remove("sidebar-is-open");
   }
 
   toggleBtn.addEventListener("click", function () {
-    sidebar.classList.toggle("open");
-    backdrop.classList.toggle("active");
+    const isOpen = sidebar.classList.toggle("open");
+    backdrop.classList.toggle("active", isOpen);
+    document.body.classList.toggle("sidebar-is-open", isOpen);
   });
 
   backdrop.addEventListener("click", closeSidebar);
