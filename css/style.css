@@ -1135,6 +1135,66 @@ body {
     margin-left: 0 !important;
     margin-top: 0 !important;
     padding-top: 0.9rem !important;
-    width: 100% !importtant;
+    width: 100% !important;
+  }
+}
+/* ============================================================
+   PERAPIAN TABEL RIWAYAT (DESKTOP & HP)
+   ============================================================ */
+.table-wrapper,
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid #fecaca;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  margin-top: 0.75rem;
+}
+
+.table-wrapper table,
+.table-responsive table,
+.main-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.main-content th,
+.main-content td {
+  padding: 0.75rem 0.95rem;
+  text-align: left;
+  border-bottom: 1px solid #f1f5f9;
+  white-space: nowrap; /* Mencegah judul kolom bertumpuk ke bawah */
+}
+
+.main-content th {
+  background: #fff5f5;
+  color: #7f1d1d;
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 2px solid #fecaca;
+}
+
+.main-content tbody tr:hover {
+  background: #fef2f2;
+}
+
+.main-content tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Penyesuaian khusus HP agar tabel nyaman digeser tanpa terpotong keluar kartu */
+@media (max-width: 960px) {
+  .main-content table {
+    min-width: 580px;
+    font-size: 0.82rem;
+  }
+
+  .main-content th,
+  .main-content td {
+    padding: 0.6rem 0.75rem;
   }
 }
