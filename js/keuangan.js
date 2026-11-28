@@ -163,6 +163,11 @@
             <span class="sub-info">${escapeHtml(jemaat.hubungan_keluarga || "Anggota")}</span>`;
   }
 
+  function getNamaJemaatPolos(jemaatId) {
+    const jemaat = jemaatId ? jemaatMap.get(String(jemaatId)) : null;
+    return jemaat?.nama || "";
+  }
+
   function populateDropdowns() {
     const jemaatOptions = jemaatList
       .map((j) => {
@@ -241,8 +246,13 @@
     }
 
     tbody.innerHTML = dataPersepuluhan
-      .map(
-        (row) => `
+      .map((row) => {
+        const namaPenyetor = getNamaJemaatPolos(row.jemaat_id);
+        const labelHapus = namaPenyetor
+          ? `Persepuluhan ${namaPenyetor} (${formatRupiah(row.nominal)})`
+          : `Persepuluhan (${formatRupiah(row.nominal)})`;
+
+        return `
         <tr>
           <td>${escapeHtml(row.tanggal)}</td>
           <td>${renderKkBadgeHtml(row.keluarga_id)}</td>
@@ -251,13 +261,17 @@
           <td><strong>${formatRupiah(row.nominal)}</strong></td>
           <td>${escapeHtml(row.keterangan || "-")}</td>
           <td>
-            <button type="button" class="btn-hapus-transaksi" data-table="persepuluhan" data-id="${escapeHtml(
-              row.id,
-            )}">Hapus</button>
+            <button
+              type="button"
+              class="btn-hapus-transaksi"
+              data-table="persepuluhan"
+              data-id="${escapeHtml(row.id)}"
+              data-info="${escapeHtml(labelHapus)}"
+            >Hapus</button>
           </td>
         </tr>
-      `,
-      )
+      `;
+      })
       .join("");
   }
 
@@ -271,8 +285,13 @@
           '<tr><td colspan="6">Belum ada setoran pembangunan.</td></tr>';
       } else {
         tbodyRiwayat.innerHTML = dataPembangunan
-          .map(
-            (row) => `
+          .map((row) => {
+            const namaPenyetor = getNamaJemaatPolos(row.jemaat_id);
+            const labelHapus = namaPenyetor
+              ? `Pembangunan ${namaPenyetor} (${formatRupiah(row.nominal)})`
+              : `Pembangunan (${formatRupiah(row.nominal)})`;
+
+            return `
             <tr>
               <td>${escapeHtml(row.tanggal)}</td>
               <td>${renderKkBadgeHtml(row.keluarga_id)}</td>
@@ -280,13 +299,17 @@
               <td><strong>${formatRupiah(row.nominal)}</strong></td>
               <td>${escapeHtml(row.keterangan || "-")}</td>
               <td>
-                <button type="button" class="btn-hapus-transaksi" data-table="pembangunan" data-id="${escapeHtml(
-                  row.id,
-                )}">Hapus</button>
+                <button
+                  type="button"
+                  class="btn-hapus-transaksi"
+                  data-table="pembangunan"
+                  data-id="${escapeHtml(row.id)}"
+                  data-info="${escapeHtml(labelHapus)}"
+                >Hapus</button>
               </td>
             </tr>
-          `,
-          )
+          `;
+          })
           .join("");
       }
     }
@@ -336,8 +359,13 @@
           '<tr><td colspan="7">Belum ada setoran janji iman.</td></tr>';
       } else {
         tbodyRiwayat.innerHTML = dataJanjiIman
-          .map(
-            (row) => `
+          .map((row) => {
+            const namaPenyetor = getNamaJemaatPolos(row.jemaat_id);
+            const labelHapus = namaPenyetor
+              ? `Janji Iman ${namaPenyetor} (${formatRupiah(row.nominal)})`
+              : `Janji Iman (${formatRupiah(row.nominal)})`;
+
+            return `
             <tr>
               <td>${escapeHtml(row.tanggal)}</td>
               <td>${renderKkBadgeHtml(row.keluarga_id)}</td>
@@ -346,13 +374,17 @@
               <td><strong>${formatRupiah(row.nominal)}</strong></td>
               <td>${escapeHtml(row.keterangan || "-")}</td>
               <td>
-                <button type="button" class="btn-hapus-transaksi" data-table="janji_iman" data-id="${escapeHtml(
-                  row.id,
-                )}">Hapus</button>
+                <button
+                  type="button"
+                  class="btn-hapus-transaksi"
+                  data-table="janji_iman"
+                  data-id="${escapeHtml(row.id)}"
+                  data-info="${escapeHtml(labelHapus)}"
+                >Hapus</button>
               </td>
             </tr>
-          `,
-          )
+          `;
+          })
           .join("");
       }
     }
@@ -361,7 +393,6 @@
       const barisProgres = [];
       const pasanganSudahAda = new Set();
 
-      // Gabungkan seluruh kombinasi (keluarga_id, tahun) dari tabel target maupun setoran
       dataTargetJanji.forEach((t) => {
         pasanganSudahAda.add(`${t.keluarga_id}__${t.tahun}`);
         barisProgres.push({
@@ -433,8 +464,12 @@
     }
 
     tbody.innerHTML = dataKasUmum
-      .map(
-        (row) => `
+      .map((row) => {
+        const infoKas = row.keterangan
+          ? `${row.kategori} - ${row.keterangan} (${formatRupiah(row.nominal)})`
+          : `${row.kategori} (${formatRupiah(row.nominal)})`;
+
+        return `
         <tr>
           <td>${escapeHtml(row.tanggal)}</td>
           <td>
@@ -446,13 +481,17 @@
           <td><strong>${formatRupiah(row.nominal)}</strong></td>
           <td>${escapeHtml(row.keterangan || "-")}</td>
           <td>
-            <button type="button" class="btn-hapus-transaksi" data-table="kas_umum" data-id="${escapeHtml(
-              row.id,
-            )}">Hapus</button>
+            <button
+              type="button"
+              class="btn-hapus-transaksi"
+              data-table="kas_umum"
+              data-id="${escapeHtml(row.id)}"
+              data-info="${escapeHtml(infoKas)}"
+            >Hapus</button>
           </td>
         </tr>
-      `,
-      )
+      `;
+      })
       .join("");
   }
 
@@ -772,7 +811,7 @@
       });
     }
 
-    // Delegasi tombol Hapus di semua tabel transaksi
+    // Delegasi tombol Hapus di semua tabel transaksi (dengan konfirmasi)
     document
       .querySelector(".main-content")
       .addEventListener("click", async function (e) {
@@ -781,7 +820,13 @@
 
         const table = btn.getAttribute("data-table");
         const id = btn.getAttribute("data-id");
+        const info = btn.getAttribute("data-info") || "transaksi ini";
         if (!table || !id) return;
+
+        const yakin = window.confirm(
+          `Apakah Anda yakin ingin menghapus data "${info}"?\nKlik OK untuk menghapus, atau Batal jika tidak jadi.`,
+        );
+        if (!yakin) return;
 
         btn.disabled = true;
         const { error: delErr } = await client

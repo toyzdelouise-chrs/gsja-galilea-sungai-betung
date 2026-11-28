@@ -163,7 +163,12 @@
             <td>${escapeHtml(row.no_hp || "-")}</td>
             <td>${escapeHtml(row.alamat || "-")}</td>
             <td>
-              <button type="button" class="btn-hapus-jemaat" data-id="${escapeHtml(row.id)}">
+              <button
+                type="button"
+                class="btn-hapus-jemaat"
+                data-id="${escapeHtml(row.id)}"
+                data-nama="${escapeHtml(nama)}"
+              >
                 Hapus
               </button>
             </td>
@@ -477,14 +482,20 @@
       });
     }
 
-    // Hapus Jemaat
+    // Hapus Jemaat (dengan konfirmasi nama)
     if (tbodyEl) {
       tbodyEl.addEventListener("click", async function (event) {
         const btn = event.target.closest(".btn-hapus-jemaat");
         if (!btn) return;
 
         const id = btn.getAttribute("data-id");
+        const nama = btn.getAttribute("data-nama") || "data ini";
         if (!id) return;
+
+        const yakin = window.confirm(
+          `Apakah Anda yakin ingin menghapus data "${nama}"?\nKlik OK untuk menghapus, atau Batal jika tidak jadi.`,
+        );
+        if (!yakin) return;
 
         btn.disabled = true;
         const { error: deleteError } = await client
@@ -498,7 +509,7 @@
           return;
         }
 
-        showMsg(messageEl, "Data jemaat berhasil dihapus.", false);
+        showMsg(messageEl, `Data "${nama}" berhasil dihapus.`, false);
         await loadJemaat(client);
       });
     }
