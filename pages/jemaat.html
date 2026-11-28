@@ -108,6 +108,40 @@
         letter-spacing: -0.25px;
       }
 
+      /* Header Daftar Jemaat + Tombol Cetak */
+      .daftar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .daftar-header h2 {
+        margin: 0;
+      }
+
+      .btn-cetak {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.58rem 1.05rem;
+        background: #0f172a;
+        color: #ffffff;
+        border: none;
+        border-radius: 0.65rem;
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .btn-cetak:hover {
+        background: #1e293b;
+        transform: translateY(-1px);
+      }
+
       /* Form & Grid */
       form {
         display: grid;
@@ -304,6 +338,11 @@
         word-break: break-word;
       }
 
+      /* Elemen khusus cetak (tersembunyi di layar biasa) */
+      .print-only {
+        display: none;
+      }
+
       /* Responsif HP */
       @media (max-width: 768px) {
         .page-header {
@@ -329,6 +368,155 @@
         .form-grid,
         .filter-bar {
           grid-template-columns: 1fr;
+        }
+      }
+
+      /* =========================================
+         STYLE KHUSUS CETAK / EXPORT PDF
+         ========================================= */
+      @media print {
+        @page {
+          size: A4 portrait;
+          margin: 14mm;
+        }
+
+        body {
+          background: #ffffff !important;
+          color: #000000 !important;
+          font-size: 11px;
+        }
+
+        /* Sembunyikan navigasi, background, form input, filter, tombol */
+        .logo-bg,
+        .sidebar,
+        .page-header,
+        #formKkSection,
+        #formJemaatSection,
+        .daftar-header,
+        .filter-bar {
+          display: none !important;
+        }
+
+        /* Lebarkan area konten utama */
+        .app-layout,
+        .main-content {
+          display: block !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+
+        #daftarJemaatSection {
+          border: none !important;
+          box-shadow: none !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          background: transparent !important;
+        }
+
+        /* Tampilkan Kop Surat & Tanda Tangan */
+        .print-only {
+          display: block !important;
+        }
+
+        .kop-surat {
+          display: flex !important;
+          align-items: center;
+          gap: 14px;
+          border-bottom: 2.5px solid #000000;
+          padding-bottom: 10px;
+          margin-bottom: 14px;
+        }
+
+        .kop-surat img {
+          width: 58px;
+          height: 58px;
+          object-fit: contain;
+        }
+
+        .kop-surat-text {
+          flex: 1;
+          text-align: center;
+        }
+
+        .kop-surat-text h2 {
+          margin: 0;
+          font-size: 15px;
+          color: #000000 !important;
+          letter-spacing: 0.5px;
+        }
+
+        .kop-surat-text h3 {
+          margin: 2px 0;
+          font-size: 13px;
+          color: #000000 !important;
+        }
+
+        .kop-surat-text p {
+          margin: 3px 0 0 0;
+          font-size: 11px;
+          color: #333333 !important;
+        }
+
+        /* Rapikan Tabel untuk PDF */
+        .table-wrapper {
+          overflow: visible !important;
+          border: none !important;
+          border-radius: 0 !important;
+        }
+
+        table {
+          width: 100% !important;
+          border-collapse: collapse !important;
+          font-size: 10.5px !important;
+        }
+
+        th,
+        td {
+          border: 1px solid #333333 !important;
+          padding: 5px 7px !important;
+          color: #000000 !important;
+          background: transparent !important;
+          position: static !important;
+        }
+
+        th {
+          background: #f1f5f9 !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        /* Sembunyikan kolom terakhir (Aksi / Hapus) */
+        table th:last-child,
+        table td:last-child {
+          display: none !important;
+        }
+
+        .badge-kk,
+        .badge-sektor {
+          background: transparent !important;
+          color: #000000 !important;
+          padding: 0 !important;
+          font-weight: 600;
+        }
+
+        /* Area Tanda Tangan */
+        .ttd-area {
+          margin-top: 28px;
+          display: flex !important;
+          justify-content: flex-end;
+          page-break-inside: avoid;
+        }
+
+        .ttd-box {
+          text-align: center;
+          width: 220px;
+          font-size: 11px;
+        }
+
+        .ttd-box p {
+          margin: 3px 0;
         }
       }
     </style>
@@ -553,7 +741,12 @@
 
         <!-- BAGIAN 3: DAFTAR JEMAAT & FILTER KK -->
         <section id="daftarJemaatSection">
-          <h2>Daftar Jemaat</h2>
+          <div class="daftar-header">
+            <h2>Daftar Jemaat</h2>
+            <button type="button" id="btnCetakPdf" class="btn-cetak">
+              🖨️ Cetak PDF
+            </button>
+          </div>
 
           <div class="filter-bar">
             <div>
@@ -582,6 +775,21 @@
             </div>
           </div>
 
+          <!-- KOP SURAT (Hanya muncul saat cetak PDF) -->
+          <div class="print-only kop-surat">
+            <img src="/assets/logo-gsja.jpg" alt="Logo GSJA GALILEA" />
+            <div class="kop-surat-text">
+              <h2>GEREJA SIDANG-SIDANG JEMAAT ALLAH (GSJA)</h2>
+              <h3>GALILEA SUNGAI BETUNG</h3>
+              <p>
+                Laporan Data Jemaat —
+                <span id="printInfoFilter"
+                  >Semua Kartu Keluarga | Semua Sektor</span
+                >
+              </p>
+            </div>
+          </div>
+
           <div class="table-wrapper">
             <table>
               <thead>
@@ -601,6 +809,16 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          <!-- TANDA TANGAN (Hanya muncul saat cetak PDF) -->
+          <div class="print-only ttd-area">
+            <div class="ttd-box">
+              <p>Sungai Betung, <span id="printTanggal"></span></p>
+              <p>Gembala Sidang / Sekretaris,</p>
+              <br /><br /><br />
+              <p><strong>( ________________________ )</strong></p>
+            </div>
           </div>
         </section>
       </main>

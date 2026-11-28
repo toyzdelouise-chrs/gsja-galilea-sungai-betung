@@ -30,10 +30,11 @@
   const simpanBtn = document.getElementById("simpanJemaatBtn");
   const messageEl = document.getElementById("jemaatMessage");
 
-  // Elemen Filter & Pencarian
+  // Elemen Filter, Pencarian & Cetak PDF
   const filterKkSelect = document.getElementById("filterKkSelect");
   const filterSektorSelect = document.getElementById("filterSektorSelect");
   const cariJemaatInput = document.getElementById("cariJemaatInput");
+  const btnCetakPdf = document.getElementById("btnCetakPdf");
 
   let allJemaat = [];
   let kkMap = {}; // { "KK-001": { kode_kk, kepala, sektor, no_hp, alamat } }
@@ -331,6 +332,36 @@
       filterSektorSelect.addEventListener("change", applyFilters);
     if (cariJemaatInput)
       cariJemaatInput.addEventListener("input", applyFilters);
+
+    // Event Cetak PDF
+    if (btnCetakPdf) {
+      btnCetakPdf.addEventListener("click", function () {
+        const printInfo = document.getElementById("printInfoFilter");
+        const printTgl = document.getElementById("printTanggal");
+
+        if (printInfo) {
+          const kkText =
+            filterKkSelect?.selectedOptions[0]?.text || "Semua Kartu Keluarga";
+          const sektorText =
+            filterSektorSelect?.selectedOptions[0]?.text || "Semua Sektor";
+          const keyword = cariJemaatInput?.value.trim();
+
+          printInfo.textContent = keyword
+            ? `${kkText} | ${sektorText} | Pencarian: "${keyword}"`
+            : `${kkText} | ${sektorText}`;
+        }
+
+        if (printTgl) {
+          printTgl.textContent = new Date().toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          });
+        }
+
+        window.print();
+      });
+    }
 
     // FORM 1: Buat Kartu Keluarga Baru
     if (kkForm) {
