@@ -214,7 +214,7 @@
       /* Filter Bar */
       .filter-bar {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 0.85rem;
         margin-bottom: 1rem;
       }
@@ -266,7 +266,7 @@
         border-bottom: none;
       }
 
-      /* Badge KK */
+      /* Badge KK & Sektor */
       .badge-kk {
         display: inline-block;
         padding: 0.22rem 0.6rem;
@@ -280,6 +280,17 @@
       .badge-kk-kosong {
         background: #f1f5f9;
         color: #64748b;
+      }
+
+      .badge-sektor {
+        display: inline-block;
+        padding: 0.22rem 0.6rem;
+        border-radius: 999px;
+        font-size: 0.76rem;
+        font-weight: 600;
+        background: #eff6ff;
+        color: #1d4ed8;
+        white-space: nowrap;
       }
 
       /* Pesan Status */
@@ -407,13 +418,26 @@
               </div>
             </div>
 
-            <div>
-              <label for="alamatKkInput">Alamat Keluarga</label>
-              <input
-                type="text"
-                id="alamatKkInput"
-                placeholder="Contoh: Jl. Galilea No. 10"
-              />
+            <div class="jemaat-grid-2">
+              <div>
+                <label for="sektorKkSelect">Sektor Ibadah Sel</label>
+                <select id="sektorKkSelect" class="jemaat-select" required>
+                  <option value="">-- Pilih Sektor --</option>
+                  <option value="Pasar">Pasar</option>
+                  <option value="Papak Bawah">Papak Bawah</option>
+                  <option value="Papak Tengah">Papak Tengah</option>
+                  <option value="Papak Atas">Papak Atas</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="alamatKkInput">Alamat Keluarga</label>
+                <input
+                  type="text"
+                  id="alamatKkInput"
+                  placeholder="Contoh: Jl. Galilea No. 10"
+                />
+              </div>
             </div>
 
             <label class="checkbox-row">
@@ -467,15 +491,28 @@
               </div>
 
               <div>
+                <label for="sektorJemaatSelect">Sektor Ibadah Sel</label>
+                <select id="sektorJemaatSelect" class="jemaat-select">
+                  <option value="">
+                    -- Otomatis ikut KK / Pilih Sektor --
+                  </option>
+                  <option value="Pasar">Pasar</option>
+                  <option value="Papak Bawah">Papak Bawah</option>
+                  <option value="Papak Tengah">Papak Tengah</option>
+                  <option value="Papak Atas">Papak Atas</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="jemaat-grid-2">
+              <div>
                 <label for="jenisKelaminSelect">Jenis Kelamin</label>
                 <select id="jenisKelaminSelect" class="jemaat-select">
                   <option value="Laki-laki">Laki-laki</option>
                   <option value="Perempuan">Perempuan</option>
                 </select>
               </div>
-            </div>
 
-            <div class="jemaat-grid-2">
               <div>
                 <label for="tanggalLahirJemaat">Tanggal Lahir</label>
                 <input
@@ -484,7 +521,9 @@
                   class="jemaat-date"
                 />
               </div>
+            </div>
 
+            <div class="jemaat-grid-2">
               <div>
                 <label for="noHpJemaat">No. HP / WhatsApp</label>
                 <input
@@ -494,16 +533,16 @@
                   placeholder="Kosongkan jika ikut HP perwakilan"
                 />
               </div>
-            </div>
 
-            <div>
-              <label for="alamatJemaat">Alamat</label>
-              <input
-                type="text"
-                id="alamatJemaat"
-                name="alamat"
-                placeholder="Otomatis ikut alamat KK jika dipilih"
-              />
+              <div>
+                <label for="alamatJemaat">Alamat</label>
+                <input
+                  type="text"
+                  id="alamatJemaat"
+                  name="alamat"
+                  placeholder="Otomatis ikut alamat KK jika dipilih"
+                />
+              </div>
             </div>
 
             <button type="submit" id="simpanJemaatBtn">Simpan Jemaat</button>
@@ -524,11 +563,21 @@
               </select>
             </div>
             <div>
+              <select id="filterSektorSelect" class="jemaat-select">
+                <option value="ALL">Semua Sektor</option>
+                <option value="Pasar">Sektor Pasar</option>
+                <option value="Papak Bawah">Sektor Papak Bawah</option>
+                <option value="Papak Tengah">Sektor Papak Tengah</option>
+                <option value="Papak Atas">Sektor Papak Atas</option>
+                <option value="NO_SEKTOR">Belum Ada Sektor</option>
+              </select>
+            </div>
+            <div>
               <input
                 type="text"
                 id="cariJemaatInput"
                 class="jemaat-filter-input"
-                placeholder="Cari nama jemaat, kode KK, atau alamat..."
+                placeholder="Cari nama, kode KK, sektor, atau alamat..."
               />
             </div>
           </div>
@@ -540,6 +589,7 @@
                   <th>Kode KK</th>
                   <th>Nama Lengkap</th>
                   <th>Hubungan</th>
+                  <th>Sektor</th>
                   <th>No. HP</th>
                   <th>Alamat</th>
                   <th>Aksi</th>
@@ -547,7 +597,7 @@
               </thead>
               <tbody id="tabelJemaatBody">
                 <tr>
-                  <td colspan="6">Memuat data jemaat...</td>
+                  <td colspan="7">Memuat data jemaat...</td>
                 </tr>
               </tbody>
             </table>
